@@ -1,0 +1,11 @@
+#pragma kernel PointCloudBaker
+
+Buffer<float> Input;
+RWTexture2D<float3> Output;
+
+[numthreads(256, 1, 1)]
+void PointCloudBaker(uint3 id : SV_DispatchThreadID)
+{
+    int index = (id.x + id.y * 256) * 3;
+    Output[id.xy] = float3(Input[index + 0], Input[index + 1], Input[index + 2]);
+}
