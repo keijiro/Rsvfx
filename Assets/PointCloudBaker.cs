@@ -9,6 +9,7 @@ namespace Rsvfx
     {
         [SerializeField] RsFrameProvider _source = null;
         [SerializeField] ComputeShader _compute = null;
+        [SerializeField] RenderTexture _output = null;
 
         FrameQueue _queue;
         ComputeBuffer _buffer;
@@ -18,7 +19,6 @@ namespace Rsvfx
 
         void Start()
         {
-            CheckComputeConsistency();
             _queue = new FrameQueue(1);
             _source.OnNewSample += OnNewSample;
         }
@@ -50,9 +50,16 @@ namespace Rsvfx
             {
                 if (points == null) return;
                 if (points.VertexData == System.IntPtr.Zero) return;
+                if (_output == null) return;
 
                 if (_buffer == null || _buffer.count != points.Count * 3)
                     ResetBuffers(points);
+
+                if (!CheckConsistency())
+                {
+                    enabled = false;
+                    return;
+                }
 
                 ComputeBufferUtility.SetUnmanagedData
                     (_buffer, points.VertexData, points.Count * 3, sizeof(float));
@@ -60,6 +67,8 @@ namespace Rsvfx
                 _compute.SetBuffer(0, "Input", _buffer);
                 _compute.SetTexture(0, "Output", _texture);
                 _compute.Dispatch(0, 1, _texture.height, 1);
+
+                Graphics.CopyTexture(_texture, _output);
             }
         }
 
@@ -69,11 +78,37 @@ namespace Rsvfx
 
         const int _textureWidth = 256;
 
-        void CheckComputeConsistency()
+        bool CheckConsistency()
         {
             uint x, y, z;
             _compute.GetKernelThreadGroupSizes(0, out x, out y, out z);
-            UnityEngine.Assertions.Assert.IsTrue(x == _textureWidth && y == 1 && z == 1);
+            if (x != _textureWidth || y != 1 || z != 1)
+            {
+                Debug.LogError(
+                    "Compute kernel thread group sizes are wrong. " +
+                    "They should be (" + _textureWidth + ", 1, 1)."
+                );
+                return false;
+            }
+
+            if (_output.width != _texture.width || _output.height != _texture.height)
+            {
+                Debug.LogError(
+                    "Texture dimensions are wrong. " +
+                    "They should be (" + _texture.width + "x" + _texture.height + ")."
+                );
+                return false;
+            }
+
+            if (_output.format != RenderTextureFormat.ARGBHalf)
+            {
+                Debug.LogError(
+                    "Render texture format is wrong. It should be ARGBHalf."
+                );
+                return false;
+            }
+
+            return true;
         }
 
         Points DequeuePoints()
