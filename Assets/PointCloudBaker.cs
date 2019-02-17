@@ -18,8 +18,9 @@ namespace Rsvfx
 
         void Start()
         {
-            _source.OnNewSample += OnNewSample;
+            CheckComputeConsistency();
             _queue = new FrameQueue(1);
+            _source.OnNewSample += OnNewSample;
         }
 
         void OnDestroy()
@@ -48,39 +49,32 @@ namespace Rsvfx
             using (var points = DequeuePoints())
             {
                 if (points == null) return;
+                if (points.VertexData == System.IntPtr.Zero) return;
 
                 if (_buffer == null || _buffer.count != points.Count * 3)
                     ResetBuffers(points);
 
-                if (points.VertexData != System.IntPtr.Zero)
-                {
-                    /*
-                    unsafe
-                    {
-                        _buffer.SetData(
-                            NativeArrayUnsafeUtility.
-                            ConvertExistingDataToNativeArray<float>(
-                                (void*)points.VertexData,
-                                sizeof(float) * 3 * points.Count,
-                                Allocator.None
-                            )
-                        );
-                    }
-                    */
-                    ComputeBufferUtility.SetNativeData(
-                        _buffer, points.VertexData, points.Count * 3, sizeof(float)
-                    );
+                ComputeBufferUtility.SetUnmanagedData
+                    (_buffer, points.VertexData, points.Count * 3, sizeof(float));
 
-                    _compute.SetBuffer(0, "Input", _buffer);
-                    _compute.SetTexture(0, "Output", _texture);
-                    _compute.Dispatch(0, 1, _texture.height, 1);
-                }
+                _compute.SetBuffer(0, "Input", _buffer);
+                _compute.SetTexture(0, "Output", _texture);
+                _compute.Dispatch(0, 1, _texture.height, 1);
             }
         }
 
         #endregion
 
         #region Private properties and methods
+
+        const int _textureWidth = 256;
+
+        void CheckComputeConsistency()
+        {
+            uint x, y, z;
+            _compute.GetKernelThreadGroupSizes(0, out x, out y, out z);
+            UnityEngine.Assertions.Assert.IsTrue(x == _textureWidth && y == 1 && z == 1);
+        }
 
         Points DequeuePoints()
         {
@@ -95,10 +89,9 @@ namespace Rsvfx
 
             _buffer = new ComputeBuffer(points.Count * 3, sizeof(float));
 
-            const int width = 512;
-
             _texture = new RenderTexture(
-                width, points.Count / width, 0, RenderTextureFormat.ARGBHalf
+                _textureWidth, points.Count / _textureWidth, 0,
+                RenderTextureFormat.ARGBHalf
             );
             _texture.enableRandomWrite = true;
             _texture.Create();
