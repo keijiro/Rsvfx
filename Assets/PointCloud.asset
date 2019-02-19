@@ -28,5 +28,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enabled: 1
   TextureStream: 2
-  TextureFormat: 0
+  TextureFormat: 7
   _occlusionRemoval: 0

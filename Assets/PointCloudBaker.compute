@@ -1,13 +1,34 @@
 #pragma kernel PointCloudBaker
 
-Buffer<float> Input;
-RWTexture2D<float4> Output;
+uint2 MapDimensions;
 
-[numthreads(256, 1, 1)]
+Buffer<uint> ColorBuffer;
+Buffer<float> PositionBuffer;
+Buffer<float> RemapBuffer;
+
+RWTexture2D<float4> ColorMap;
+RWTexture2D<float4> PositionMap;
+
+[numthreads(8, 8, 1)]
 void PointCloudBaker(uint3 id : SV_DispatchThreadID)
 {
-    int index = (id.x + id.y * 256) * 3;
-    float3 p = float3(Input[index + 0], Input[index + 1], Input[index + 2]);
-    if (p.z < 0.1 || p.z > 1) p = 1000;
-    Output[id.xy] = float4(p, 1);
+    uint i = id.x + id.y * MapDimensions.x;
+
+    float2 uv = float2(RemapBuffer[i * 2], RemapBuffer[i * 2 + 1]);
+    bool mask = all(0 < uv && uv < 1);
+
+    uint2 uv2 = uv * MapDimensions;
+    uint raw = ColorBuffer[uv2.x + uv2.y * MapDimensions.x];
+
+    float3 color = (uint3(raw, raw >> 8, raw >> 16) & 0xffU) / 255.0;
+
+    ColorMap[id.xy] = float4(mask * color, 1);
+
+    float3 pos = float3(
+        PositionBuffer[i * 3],
+        PositionBuffer[i * 3 + 1],
+        PositionBuffer[i * 3 + 2]
+    );
+
+    PositionMap[id.xy] = float4(pos + 1e+5 * !mask, 1);
 }
