@@ -3,11 +3,25 @@
     "com.unity.package-manager-ui": "2.0.3",
     "com.unity.render-pipelines.high-definition": "4.9.0-preview",
     "com.unity.visualeffectgraph": "4.9.0-preview",
+    "jp.keijiro.kino.post-processing": "https://github.com/keijiro/Kino.git#upm",
+    "jp.keijiro.klak": "https://github.com/keijiro/Klak.git#upm",
+    "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.imgui": "1.0.0",
     "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.modules.particlesystem": "1.0.0",
     "com.unity.modules.physics": "1.0.0",
     "com.unity.modules.ui": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
+  },
+  "lock": {
+    "jp.keijiro.klak": {
+      "hash": "998c115201969984019639126bc8d0001c79d243",
+      "revision": "upm"
+    },
+    "jp.keijiro.kino.post-processing": {
+      "hash": "0996b2d07dc1000963cc7264e5528abbebde8425",
+      "revision": "upm"
+    }
   }
 }
