@@ -1,8 +1,8 @@
 {
   "dependencies": {
     "com.unity.package-manager-ui": "2.0.3",
-    "com.unity.render-pipelines.high-definition": "4.9.0-preview",
-    "com.unity.visualeffectgraph": "4.9.0-preview",
+    "com.unity.render-pipelines.high-definition": "4.10.0-preview",
+    "com.unity.visualeffectgraph": "4.10.0-preview",
     "jp.keijiro.kino.post-processing": "https://github.com/keijiro/Kino.git#upm",
     "jp.keijiro.klak": "https://github.com/keijiro/Klak.git#upm",
     "com.unity.modules.animation": "1.0.0",
