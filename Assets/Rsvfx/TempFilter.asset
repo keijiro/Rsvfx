@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 475d71c97716db644863efe7bddfbd70, type: 3}
+  m_Name: TempFilter
+  m_EditorClassIdentifier: 
+  _processingBlocks:
+  - {fileID: 114702139847668122}
+--- !u!114 &114702139847668122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bec95ba2af23efd408d33138086f1c65, type: 3}
+  m_Name: RsTemporalFilter
+  m_EditorClassIdentifier: 
+  enabled: 1
+  _filterSmoothAlpha: 0.2
+  _filterSmoothDelta: 47
+  _temporalPersistence: 6
