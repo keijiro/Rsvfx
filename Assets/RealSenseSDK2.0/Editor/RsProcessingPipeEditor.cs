@@ -106,15 +106,16 @@ public class RsProcessingPipeEditor : Editor
                 serializedObject.UpdateIfRequiredOrScript();
 
                 var block = (data as object[])[0] as Type;
-                var index = list.serializedProperty.arraySize;
-                list.serializedProperty.arraySize++;
-                list.index = index;
-                var element = list.serializedProperty.GetArrayElementAtIndex(index);
 
                 var obj = ScriptableObject.CreateInstance(block);
                 // UnityEditor.ObjectNames.GetUniqueName(names.ToArray(), block.Name);
                 obj.name = block.Name;
                 AssetDatabase.AddObjectToAsset(obj, target);
+
+                var index = list.serializedProperty.arraySize;
+                list.serializedProperty.arraySize++;
+                list.index = index;
+                var element = list.serializedProperty.GetArrayElementAtIndex(index);
                 element.objectReferenceValue = obj;
 
                 serializedObject.ApplyModifiedProperties();
