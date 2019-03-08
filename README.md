@@ -15,10 +15,18 @@ System requirements
 
 - Unity 2018.3 or later
 - Intel RealSense D400 series
+- [Git] (required for importing external packages)
 
 This repository only contains Windows and Linux versions of the RealSense
 plugin binaries. For macOS, the plugin binary must be installed separately.
 
+This project uses [Git support on Package Manager] to import external
+packages. To use the functionality, [Git] must be installed to the system.
+See [the forum thread][Git support on Package Manager] for futher details.
+
+[Git]: https://git-scm.com/
+[Git support on Package Manager]:
+    https://forum.unity.com/threads/git-support-on-package-manager.573673/
 
 How it works
 ------------
