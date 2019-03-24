@@ -13,7 +13,7 @@ camera to a Unity [Visual Effect Graph].
 System requirements
 -------------------
 
-- Unity 2018.3 or later
+- Unity 2019.1 or later
 - Intel RealSense D400 series
 - [Git] (required for importing external packages)
 
