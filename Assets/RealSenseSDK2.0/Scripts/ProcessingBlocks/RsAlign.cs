@@ -1,4 +1,4 @@
-﻿using Intel.RealSense;
+using Intel.RealSense;
 
 [ProcessingBlockDataAttribute(typeof(Align))]
 public class RsAlign : RsProcessingBlock
