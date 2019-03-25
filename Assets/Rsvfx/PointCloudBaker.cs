@@ -133,17 +133,14 @@ namespace Rsvfx
 
         #region Frame query method
 
-        VideoFrame RetrieveColorFrame(Frame frame)
+        Frame RetrieveColorFrame(Frame frame)
         {
-            if (frame is VideoFrame)
+            using (var profile = frame.Profile)
             {
-                using (var profile = frame.Profile)
-                {
-                    if (profile.Stream == Stream.Color &&
-                        profile.Format == Format.Rgba8 &&
-                        profile.Index == 0)
-                        return (VideoFrame)frame;
-                }
+                if (profile.Stream == Stream.Color &&
+                    profile.Format == Format.Rgba8 &&
+                    profile.Index == 0)
+                return frame;
             }
 
             if (frame.IsComposite)
@@ -162,9 +159,9 @@ namespace Rsvfx
             return null;
         }
 
-        Points RetrievePointFrame(Frame frame)
+        Frame RetrievePointFrame(Frame frame)
         {
-            if (frame is Points) return (Points)frame;
+            if (frame.Is(Extension.Points)) return frame;
 
             if (frame.IsComposite)
             {
@@ -188,14 +185,14 @@ namespace Rsvfx
 
         VideoFrame DequeueColorFrame()
         {
-            Frame frame;
-            return _colorQueue.PollForFrame(out frame) ? (VideoFrame)frame : null;
+            VideoFrame frame;
+            return _colorQueue.PollForFrame<VideoFrame>(out frame) ? frame : null;
         }
 
         Points DequeuePointFrame()
         {
-            Frame frame;
-            return _pointQueue.PollForFrame(out frame) ? (Points)frame : null;
+            Points points;
+            return _pointQueue.PollForFrame<Points>(out points) ? points : null;
         }
 
         void UpdateColorData(VideoFrame frame)
@@ -213,7 +210,7 @@ namespace Rsvfx
             if (_colorBuffer == null)
                 _colorBuffer = new ComputeBuffer(size, 4);
 
-            UnsafeUtility.SetUnmanagedData (_colorBuffer, frame.Data, size, 4);
+            UnsafeUtility.SetUnmanagedData(_colorBuffer, frame.Data, size, 4);
 
             _dimensions = new Vector2Int(frame.Width, frame.Height);
         }
