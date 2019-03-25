@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7820725400522837805
+--- !u!114 &-7570560584298230710
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e983f300be5296946991080a386e462a, type: 3}
-  m_Name: DepthCutoff
+  m_Script: {fileID: 11500000, guid: bec95ba2af23efd408d33138086f1c65, type: 3}
+  m_Name: RsTemporalFilter
   m_EditorClassIdentifier: 
   enabled: 1
-  Distance: 1000
+  _filterSmoothAlpha: 0.3
+  _filterSmoothDelta: 85
+  _temporalPersistence: 7
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27,9 +29,9 @@ MonoBehaviour:
   m_Name: Filters
   m_EditorClassIdentifier: 
   _processingBlocks:
-  - {fileID: 114702139847668122}
-  - {fileID: -7820725400522837805}
---- !u!114 &114702139847668122
+  - {fileID: 5093470423639917846}
+  - {fileID: -7570560584298230710}
+--- !u!114 &5093470423639917846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -38,10 +40,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bec95ba2af23efd408d33138086f1c65, type: 3}
-  m_Name: RsTemporalFilter
+  m_Script: {fileID: 11500000, guid: e983f300be5296946991080a386e462a, type: 3}
+  m_Name: DepthCutoff
   m_EditorClassIdentifier: 
   enabled: 1
-  _filterSmoothAlpha: 0.2
-  _filterSmoothDelta: 47
-  _temporalPersistence: 6
+  Distance: 1000
