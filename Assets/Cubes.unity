@@ -746,7 +746,7 @@ MonoBehaviour:
   useVolumetric: 1
   featuresFoldout: 1
   showAdditionalSettings: 0
-  displayLightIntensity: 2200
+  displayLightIntensity: 300
   displayAreaLightEmissiveMesh: 0
   areaLightCookie: {fileID: 0}
   areaLightShadowCone: 120
@@ -774,7 +774,7 @@ Light:
   serializedVersion: 9
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 175.07043
+  m_Intensity: 23.873241
   m_Range: 2
   m_SpotAngle: 48
   m_InnerSpotAngle: 35.49019

@@ -143,10 +143,10 @@ MonoBehaviour:
   categories: []
   uiBounds:
     serializedVersion: 2
-    x: -301
+    x: -326
     y: -1093
-    width: 1522
-    height: 2742
+    width: 1539
+    height: 2731
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1800,7 +1800,7 @@ VisualEffectResource:
           m_Value:
             serializedVersion: 2
             key0: {r: 0, g: 0, b: 0, a: 1}
-            key1: {r: 2.297397, g: 0.40031463, b: 0, a: 1}
+            key1: {r: 0.98833734, g: 0.1759344, b: 0, a: 1}
             key2: {r: 0, g: 0, b: 0, a: 0}
             key3: {r: 0, g: 0, b: 0, a: 0}
             key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1829,7 +1829,7 @@ VisualEffectResource:
       m_NamedObject:
         m_Array:
         - m_ExpressionIndex: 20
-          m_Value: {fileID: 0}
+          m_Value: {fileID: 2800000, guid: 029e37fd0dd872420a994b30e051e33b, type: 3}
         - m_ExpressionIndex: 29
           m_Value: {fileID: 8400000, guid: d8e773d5bbad0c05c965e6b888e86b55, type: 2}
         - m_ExpressionIndex: 32
@@ -3414,7 +3414,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: 
+      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"029e37fd0dd872420a994b30e051e33b","type":3}}'
     m_Space: 2147483647
   m_Property:
     name: baseColorMap
@@ -6068,7 +6068,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: 
+      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"029e37fd0dd872420a994b30e051e33b","type":3}}'
     m_Space: 2147483647
   m_Property:
     name: mainTexture
@@ -6190,7 +6190,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":0.2647135257720947},{"color":{"r":2.2973968982696535,"g":0.4003146290779114,"b":0.0,"a":1.0},"time":0.9441214799880981}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":0.2647135257720947},{"color":{"r":0.9883373379707336,"g":0.17593440413475038,"b":0.0,"a":1.0},"time":0.9441214799880981}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}],"gradientMode":0}'
     m_Space: 2147483647
   m_Property:
     name: Color

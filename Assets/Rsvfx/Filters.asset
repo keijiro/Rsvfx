@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enabled: 1
   _filterSmoothAlpha: 0.3
-  _filterSmoothDelta: 85
+  _filterSmoothDelta: 75
   _temporalPersistence: 7
 --- !u!114 &11400000
 MonoBehaviour:
@@ -30,7 +30,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _processingBlocks:
   - {fileID: 5093470423639917846}
+  - {fileID: 1789406492603770128}
   - {fileID: -7570560584298230710}
+--- !u!114 &1789406492603770128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f1a4dc738fa514aa5e5d4cc3665aae, type: 3}
+  m_Name: RsSpatialFilter
+  m_EditorClassIdentifier: 
+  enabled: 1
+  _filterMagnitude: 2
+  _filterSmoothAlpha: 0.5
+  _filterSmoothDelta: 20
+  _holeFillingMode: 1
 --- !u!114 &5093470423639917846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,4 +62,4 @@ MonoBehaviour:
   m_Name: DepthCutoff
   m_EditorClassIdentifier: 
   enabled: 1
-  Distance: 1000
+  Distance: 1300
