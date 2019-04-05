@@ -2,9 +2,9 @@
 
 uint2 MapDimensions;
 
-Buffer<uint> ColorBuffer;
-Buffer<float> PositionBuffer;
-Buffer<float> RemapBuffer;
+StructuredBuffer<uint> ColorBuffer;
+StructuredBuffer<float> PositionBuffer;
+StructuredBuffer<float> RemapBuffer;
 
 RWTexture2D<float4> ColorMap;
 RWTexture2D<float4> PositionMap;
