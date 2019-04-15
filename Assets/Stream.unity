@@ -443,7 +443,10 @@ VisualEffect:
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0
+        m_Name: Turbulence
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
