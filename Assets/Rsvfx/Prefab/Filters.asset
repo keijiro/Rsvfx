@@ -62,4 +62,4 @@ MonoBehaviour:
   m_Name: DepthCutoff
   m_EditorClassIdentifier: 
   enabled: 1
-  Distance: 2000
+  Distance: 1500
