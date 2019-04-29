@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1528475295553199700}
   - component: {fileID: 1528475295553199703}
   m_Layer: 0
-  m_Name: RealSense
+  m_Name: RealSenseVGA60
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,6 +107,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _colorSource: {fileID: 1528475295553199701}
   _pointSource: {fileID: 1528475295553199700}
-  _colorMap: {fileID: 8400000, guid: e96cdc3b37ad79be39d14ce547fe0da1, type: 2}
-  _positionMap: {fileID: 8400000, guid: d8e773d5bbad0c05c965e6b888e86b55, type: 2}
+  _colorMap: {fileID: 0}
+  _positionMap: {fileID: 0}
   _compute: {fileID: 7200000, guid: 5e9f29dc01a48bcb59ee66eaddc9d7d2, type: 3}
