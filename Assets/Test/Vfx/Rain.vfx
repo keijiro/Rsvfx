@@ -778,7 +778,7 @@ VisualEffectResource:
       * 0x4 + 0x33E140) << 2));\n\t\t\tfloat age = asfloat(attributeBuffer.Load((index
       * 0x8 + 0x30D44) << 2));\n\t\t\t\n\n\t\t\t\n#if VFX_USE_OLDPOSITION_CURRENT\n\t\t\toldPosition
       = position;\n#endif\n\t\t\t\n\t\t\t{\n\t\t\t    Gravity( /*inout */velocity,
-      float3(0,0.4,0), deltaTime_a);\n\t\t\t}\n\t\t\tEulerIntegration( /*inout */position,
+      float3(0,-0.4,0), deltaTime_a);\n\t\t\t}\n\t\t\tEulerIntegration( /*inout */position,
       velocity, deltaTime_a);\n\t\t\tAge( /*inout */age, deltaTime_a);\n\t\t\tReap(age,
       lifetime,  /*inout */alive);\n\t\t\t\n\n\t\t\tif (alive)\n\t\t\t{\n\t\t\t\tattributeBuffer.Store3((index
       * 0x8 + 0x30D40) << 2,asuint(position));\n\t\t\t\tattributeBuffer.Store3((index
@@ -793,7 +793,7 @@ VisualEffectResource:
       * 0x4 + 0x33E140) << 2));\n\t\tbool alive = (attributeBuffer.Load((index * 0x8
       + 0x30D43) << 2));\n\t\tfloat age = asfloat(attributeBuffer.Load((index * 0x8
       + 0x30D44) << 2));\n\t\t\n\n\t\t\n#if VFX_USE_OLDPOSITION_CURRENT\n\t\toldPosition
-      = position;\n#endif\n\t\t\n\t\t{\n\t\t    Gravity( /*inout */velocity, float3(0,0.4,0),
+      = position;\n#endif\n\t\t\n\t\t{\n\t\t    Gravity( /*inout */velocity, float3(0,-0.4,0),
       deltaTime_a);\n\t\t}\n\t\tEulerIntegration( /*inout */position, velocity, deltaTime_a);\n\t\tAge(
       /*inout */age, deltaTime_a);\n\t\tReap(age, lifetime,  /*inout */alive);\n\t\t\n\n\t\tattributeBuffer.Store3((index
       * 0x8 + 0x30D40) << 2,asuint(position));\n\t\tattributeBuffer.Store3((index
@@ -1039,7 +1039,7 @@ VisualEffectResource:
         - m_ExpressionIndex: 10
           m_Value: {x: 0, y: 0.001, z: 0}
         - m_ExpressionIndex: 12
-          m_Value: {x: 0, y: 0.4, z: 0}
+          m_Value: {x: 0, y: -0.4, z: 0}
       m_Vector4f:
         m_Array: []
       m_Uint:
@@ -2182,7 +2182,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Vector, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"vector":{"x":0.0,"y":0.4000000059604645,"z":0.0}}'
+      m_SerializableObject: '{"vector":{"x":0.0,"y":-0.4000000059604645,"z":0.0}}'
     m_Space: 0
   m_Property:
     name: Force

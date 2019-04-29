@@ -22,12 +22,12 @@ void PointCloudBaker(uint3 id : SV_DispatchThreadID)
 
     float3 color = (uint3(raw, raw >> 8, raw >> 16) & 0xffU) / 255.0;
 
-    ColorMap[id.xy] = float4(mask * color, 1);
+    ColorMap[id.xy] = float4(mask * color, mask);
 
     float3 pos = float3(
-        PositionBuffer[i * 3],
-        PositionBuffer[i * 3 + 1],
-        PositionBuffer[i * 3 + 2]
+         PositionBuffer[i * 3],
+        -PositionBuffer[i * 3 + 1],
+         PositionBuffer[i * 3 + 2]
     );
 
     PositionMap[id.xy] = float4(pos + 1e+5 * !mask, 1);
