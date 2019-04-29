@@ -3,20 +3,19 @@
     "com.unity.package-manager-ui": "2.1.2",
     "com.unity.render-pipelines.high-definition": "5.13.0-preview",
     "com.unity.visualeffectgraph": "5.13.0-preview",
-    "jp.keijiro.klak": "https://github.com/keijiro/Klak.git#upm",
+    "jp.keijiro.klak.motion": "https://github.com/keijiro/ProceduralMotion.git#upm",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.imageconversion": "1.0.0",
     "com.unity.modules.imgui": "1.0.0",
     "com.unity.modules.jsonserialize": "1.0.0",
-    "com.unity.modules.particlesystem": "1.0.0",
     "com.unity.modules.physics": "1.0.0",
     "com.unity.modules.unitywebrequest": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
   },
   "lock": {
-    "jp.keijiro.klak": {
-      "hash": "998c115201969984019639126bc8d0001c79d243",
+    "jp.keijiro.klak.motion": {
+      "hash": "135fc7799e07da32c43637709f1c13323343d469",
       "revision": "upm"
     }
   }
