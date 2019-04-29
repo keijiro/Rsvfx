@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 44d8918f4728b427abcd4860b01a87d7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _colorSource: {instanceID: 0}
+  - _pointSource: {instanceID: 0}
+  - _colorMap: {instanceID: 0}
+  - _positionMap: {instanceID: 0}
+  - _compute: {fileID: 7200000, guid: 5e9f29dc01a48bcb59ee66eaddc9d7d2, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
