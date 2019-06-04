@@ -1,11 +1,9 @@
 using UnityEngine;
 using Intel.RealSense;
-using Unity.Collections;
-using Unity.Collections.LowLevel.Unsafe;
 
 namespace Rsvfx
 {
-    public class PointCloudBaker : MonoBehaviour
+    public sealed class PointCloudBaker : MonoBehaviour
     {
         #region Editable attributes
 
@@ -16,6 +14,14 @@ namespace Rsvfx
         [SerializeField] RenderTexture _positionMap = null;
 
         [SerializeField, HideInInspector] ComputeShader _compute = null;
+
+        #endregion
+
+        #region Public property
+
+        public double Timestamp {
+            get { return (_colorTime + _pointTime) * 0.5; }
+        }
 
         #endregion
 
@@ -31,6 +37,8 @@ namespace Rsvfx
         Vector2Int _dimensions;
         RenderTexture _tempColorMap;
         RenderTexture _tempPositionMap;
+
+        double _colorTime, _pointTime;
 
         #endregion
 
@@ -213,6 +221,8 @@ namespace Rsvfx
             UnsafeUtility.SetUnmanagedData(_colorBuffer, frame.Data, size, 4);
 
             _dimensions = new Vector2Int(frame.Width, frame.Height);
+
+            _colorTime = frame.Timestamp;
         }
 
         void UpdatePointData(Points points)
@@ -246,6 +256,8 @@ namespace Rsvfx
 
             UnsafeUtility.SetUnmanagedData
                 (_remapBuffer, points.TextureData, countx2, sizeof(float));
+
+            _pointTime = points.Timestamp;
         }
 
         void RemapPoints()
