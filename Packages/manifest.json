@@ -1,8 +1,8 @@
 {
   "dependencies": {
     "com.unity.package-manager-ui": "2.1.2",
-    "com.unity.render-pipelines.high-definition": "5.13.0-preview",
-    "com.unity.visualeffectgraph": "5.13.0-preview",
+    "com.unity.render-pipelines.high-definition": "5.16.1-preview",
+    "com.unity.visualeffectgraph": "5.16.1-preview",
     "jp.keijiro.klak.motion": "https://github.com/keijiro/ProceduralMotion.git#upm",
     "jp.keijiro.vfxextra": "https://github.com/keijiro/VfxExtra.git#upm",
     "com.unity.modules.animation": "1.0.0",
