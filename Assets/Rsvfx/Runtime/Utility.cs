@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using UnityEngine;
+using Unity.Mathematics;
 
 namespace Rsvfx
 {
@@ -40,6 +41,14 @@ namespace Rsvfx
 
         public static void SetInts
             (this ComputeShader shader, string name, Vector2Int args)
+        {
+            _intArgs2[0] = args.x;
+            _intArgs2[1] = args.y;
+            shader.SetInts(name, _intArgs2);
+        }
+
+        public static void SetInts
+            (this ComputeShader shader, string name, int2 args)
         {
             _intArgs2[0] = args.x;
             _intArgs2[1] = args.y;
