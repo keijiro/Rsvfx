@@ -5,12 +5,14 @@
     "com.unity.render-pipelines.high-definition": "5.16.1-preview",
     "com.unity.visualeffectgraph": "5.16.1-preview",
     "jp.keijiro.klak.motion": "https://github.com/keijiro/ProceduralMotion.git#upm",
+    "jp.keijiro.klak.ndi": "https://github.com/keijiro/KlakNDI.git#upm",
     "jp.keijiro.vfxextra": "https://github.com/keijiro/VfxExtra.git#upm",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.imageconversion": "1.0.0",
     "com.unity.modules.imgui": "1.0.0",
     "com.unity.modules.jsonserialize": "1.0.0",
     "com.unity.modules.physics": "1.0.0",
+    "com.unity.modules.ui": "1.0.0",
     "com.unity.modules.unitywebrequest": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
@@ -18,6 +20,10 @@
   "lock": {
     "jp.keijiro.klak.motion": {
       "hash": "135fc7799e07da32c43637709f1c13323343d469",
+      "revision": "upm"
+    },
+    "jp.keijiro.klak.ndi": {
+      "hash": "96f1c7eec6944decbd0ad862d63d8dd1cc946ddf",
       "revision": "upm"
     },
     "jp.keijiro.vfxextra": {
