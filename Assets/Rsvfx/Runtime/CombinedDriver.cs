@@ -39,35 +39,45 @@ namespace Rsvfx
         void TrackerThread()
         {
             while (!_terminate)
-                using (var pf = _pipes.tracker.WaitForFrames().Cast<PoseFrame>())
-                    lock (_poseQueue) _poseQueue.Enqueue(pf);
+            {
+                // A tracker may stop sending pose data when V-SLAM fails. This
+                // occasionally happens when there is no visual clue in its
+                // sight (looking at a white wall, left in a dark room, etc.).
+                // To handle this case properly, we use TryWaitForFrames rather
+                // than WaitForFrames.
+                FrameSet fs;
+                if (_pipes.tracker.TryWaitForFrames(out fs))
+                {
+                    // Retrieve and enqueue the pose data.
+                    using (fs)
+                        using (var pf = fs.PoseFrame)
+                            lock (_poseQueue) _poseQueue.Enqueue(pf);
+                }
+            }
         }
 
         void DepthThread()
         {
             using (var pcBlock = new PointCloud())
                 while (!_terminate)
-                    using (var frame = _pipes.depth.WaitForFrames())
+                    using (var fs = _pipes.depth.WaitForFrames())
                     {
-                        using (var fs = frame.AsFrameSet())
+                        // Retrieve and store the color frame.
+                        lock (_depthFrameLock)
                         {
-                            // Retrieve and store the color frame.
+                            _depthFrame.color?.Dispose();
+                            _depthFrame.color = fs.ColorFrame;
+                            pcBlock.MapTexture(_depthFrame.color);
+                        }
+
+                        // Construct and store a point cloud.
+                        using (var df = fs.DepthFrame)
+                        {
+                            var pc = pcBlock.Process(df).Cast<Points>();
                             lock (_depthFrameLock)
                             {
-                                _depthFrame.color?.Dispose();
-                                _depthFrame.color = fs.ColorFrame;
-                                pcBlock.MapTexture(_depthFrame.color);
-                            }
-
-                            // Construct and store a point cloud.
-                            using (var df = fs.DepthFrame)
-                            {
-                                var pc = pcBlock.Process(df).Cast<Points>();
-                                lock (_depthFrameLock)
-                                {
-                                    _depthFrame.point?.Dispose();
-                                    _depthFrame.point = pc;
-                                }
+                                _depthFrame.point?.Dispose();
+                                _depthFrame.point = pc;
                             }
                         }
                     }
