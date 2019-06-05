@@ -1,7 +1,8 @@
 {
     "name": "Rsvfx",
     "references": [
-        "GUID:013d31ba725d57441b37057eb0e5963e"
+        "GUID:013d31ba725d57441b37057eb0e5963e",
+        "GUID:d8b63aba1907145bea998dd612889d6b"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

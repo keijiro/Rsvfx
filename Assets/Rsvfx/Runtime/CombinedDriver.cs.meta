@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fe39729c034de232aa90a488c8b6b1e6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _poseTransform: {instanceID: 0}
+  - _colorMap: {instanceID: 0}
+  - _positionMap: {instanceID: 0}
+  - _compute: {fileID: 7200000, guid: 5e9f29dc01a48bcb59ee66eaddc9d7d2, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
