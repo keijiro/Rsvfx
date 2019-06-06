@@ -31,6 +31,7 @@ namespace Rsvfx
         readonly object _depthFrameLock = new object();
 
         DepthConverter _converter;
+        double _depthTime;
 
         #endregion
 
@@ -160,7 +161,7 @@ namespace Rsvfx
             // Apply pose data to the target transform.
             lock (_poseQueue)
             {
-                var data = _poseQueue.Dequeue(time);
+                var data = _poseQueue.Dequeue(_depthTime);
                 if (data != null)
                 {
                     var pose = (PoseData)data;
@@ -168,6 +169,9 @@ namespace Rsvfx
                     _poseTransform.rotation = pose.rotation;
                 }
             }
+
+            // Record the timestamp of the depth frame.
+            _depthTime = time;
         }
 
         #endregion
