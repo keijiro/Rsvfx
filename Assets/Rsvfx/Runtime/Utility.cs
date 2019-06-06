@@ -1,11 +1,11 @@
-using System;
 using System.Reflection;
 using UnityEngine;
 using Unity.Mathematics;
+using IntPtr = System.IntPtr;
 
 namespace Rsvfx
 {
-    internal static class UnsafeUtility
+    static class UnsafeUtility
     {
         static MethodInfo _method;
         static object [] _args5 = new object[5];
@@ -36,7 +36,10 @@ namespace Rsvfx
 
             _method.Invoke(buffer, _args5);
         }
+    }
 
+    static class ComputeShaderExtensions
+    {
         static int[] _intArgs2 = new int [2];
 
         public static void SetInts
