@@ -1,4 +1,4 @@
-#pragma kernel PointCloudBaker
+#pragma kernel Convert
 
 uint2 MapDimensions;
 
@@ -10,7 +10,7 @@ RWTexture2D<float4> ColorMap;
 RWTexture2D<float4> PositionMap;
 
 [numthreads(8, 8, 1)]
-void PointCloudBaker(uint3 id : SV_DispatchThreadID)
+void Convert(uint3 id : SV_DispatchThreadID)
 {
     uint i = id.x + id.y * MapDimensions.x;
 

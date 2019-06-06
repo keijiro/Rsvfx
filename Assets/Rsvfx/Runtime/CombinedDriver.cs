@@ -149,13 +149,13 @@ namespace Rsvfx
             {
                 if (_depthFrame.color == null) return;
                 if (_depthFrame.point == null) return;
-                _converter.UpdateColorData(_depthFrame.color);
-                _converter.UpdatePointData(_depthFrame.point);
+                _converter.LoadColorData(_depthFrame.color);
+                _converter.LoadPointData(_depthFrame.point);
                 time = _depthFrame.color.Timestamp;
             }
 
             // Update the external attribute maps.
-            _converter.UpdateMaps(_colorMap, _positionMap);
+            _converter.UpdateAttributeMaps(_colorMap, _positionMap);
 
             // Apply pose data to the target transform.
             lock (_poseQueue)

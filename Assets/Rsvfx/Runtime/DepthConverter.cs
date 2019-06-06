@@ -1,9 +1,13 @@
 using UnityEngine;
 using Unity.Mathematics;
+using IntPtr = System.IntPtr;
 using RealSense = Intel.RealSense;
 
 namespace Rsvfx
 {
+    // A class that converts a RealSense depth frame (a color video frame and
+    // a corresponding point cloud) into attribute maps (color/position) that
+    // can be easily fed to a visual effect graph.
     sealed class DepthConverter : System.IDisposable
     {
         #region Public methods
@@ -46,10 +50,11 @@ namespace Rsvfx
             }
         }
 
-        public void UpdateColorData(RealSense.VideoFrame frame)
+        // Load color data (a video frame) into the internal buffer.
+        public void LoadColorData(RealSense.VideoFrame frame)
         {
             if (frame == null) return;
-            if (frame.Data == System.IntPtr.Zero) return;
+            if (frame.Data == IntPtr.Zero) return;
 
             var size = frame.Width * frame.Height;
 
@@ -67,11 +72,12 @@ namespace Rsvfx
             _dimensions = math.int2(frame.Width, frame.Height);
         }
 
-        public void UpdatePointData(RealSense.Points points)
+        // Load point data (a Points instance) into the internal buffer.
+        public void LoadPointData(RealSense.Points points)
         {
             if (points == null) return;
-            if (points.VertexData == System.IntPtr.Zero) return;
-            if (points.TextureData == System.IntPtr.Zero) return;
+            if (points.VertexData == IntPtr.Zero) return;
+            if (points.TextureData == IntPtr.Zero) return;
 
             var countx2 = points.Count * 2;
             var countx3 = points.Count * 3;
@@ -101,7 +107,9 @@ namespace Rsvfx
                 (_remapBuffer, points.TextureData, countx2, sizeof(float));
         }
 
-        public void UpdateMaps(RenderTexture colorMap, RenderTexture positionMap)
+        // Update external attribute maps based on the internal buffers.
+        public void UpdateAttributeMaps
+            (RenderTexture colorMap, RenderTexture positionMap)
         {
             if (colorMap == null) return;
             if (positionMap == null) return;
@@ -112,8 +120,12 @@ namespace Rsvfx
 
             if (!CheckConsistency(colorMap, positionMap)) return;
 
-            RemapPoints();
+            // We can't directly bake these external render textures due to
+            // lack of random-write flag, so temporarily bake to the internal
+            // render textures.
+            BakeToTempMaps();
 
+            // Then copy them to the destinations.
             Graphics.CopyTexture(_tempColorMap, colorMap);
             Graphics.CopyTexture(_tempPositionMap, positionMap);
         }
@@ -137,7 +149,7 @@ namespace Rsvfx
 
         #region Private methods
 
-        void RemapPoints()
+        void BakeToTempMaps()
         {
             if (_tempColorMap != null &&
                 (_tempColorMap.width != _dimensions.x ||
@@ -157,16 +169,20 @@ namespace Rsvfx
 
             if (_tempColorMap == null)
             {
-                _tempColorMap = new RenderTexture
-                    (_dimensions.x, _dimensions.y, 0, RenderTextureFormat.ARGB32);
+                _tempColorMap = new RenderTexture(
+                    _dimensions.x, _dimensions.y, 0,
+                    RenderTextureFormat.ARGB32
+                );
                 _tempColorMap.enableRandomWrite = true;
                 _tempColorMap.Create();
             }
 
             if (_tempPositionMap == null)
             {
-                _tempPositionMap = new RenderTexture
-                    (_dimensions.x, _dimensions.y, 0, RenderTextureFormat.ARGBHalf);
+                _tempPositionMap = new RenderTexture(
+                    _dimensions.x, _dimensions.y, 0,
+                    RenderTextureFormat.ARGBHalf
+                );
                 _tempPositionMap.enableRandomWrite = true;
                 _tempPositionMap.Create();
             }
@@ -186,21 +202,27 @@ namespace Rsvfx
         {
             if (_warned) return false;
 
-            if (_dimensions.x % 8 != 0 && _dimensions.y % 8 != 0)
+            if (_dimensions.x % 8 != 0 &&
+                _dimensions.y % 8 != 0)
             {
-                Debug.LogError("Color input dimensions should be a multiple of 8.");
+                Debug.LogError
+                    ("Color input dimensions should be a multiple of 8.");
                 _warned = true;
             }
 
-            if (colorMap.width != _dimensions.x || colorMap.height != _dimensions.y)
+            if (colorMap.width  != _dimensions.x ||
+                colorMap.height != _dimensions.y)
             {
-                Debug.LogError("Color map dimensions don't match with the input.");
+                Debug.LogError
+                    ("Color map dimensions don't match with the input.");
                 _warned = true;
             }
 
-            if (positionMap.width != _dimensions.x || positionMap.height != _dimensions.y)
+            if (positionMap.width  != _dimensions.x ||
+                positionMap.height != _dimensions.y)
             {
-                Debug.LogError("Position map dimensions don't match with the input.");
+                Debug.LogError
+                    ("Position map dimensions don't match with the input.");
                 _warned = true;
             }
 
