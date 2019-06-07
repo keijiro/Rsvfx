@@ -9,6 +9,12 @@ StructuredBuffer<float> RemapBuffer;
 RWTexture2D<float4> ColorMap;
 RWTexture2D<float4> PositionMap;
 
+// Copy-pasted from UnityCG.cginc
+inline half3 GammaToLinearSpace (half3 sRGB)
+{
+    return sRGB * (sRGB * (sRGB * 0.305306011h + 0.682171111h) + 0.012522878h);
+}
+
 [numthreads(8, 8, 1)]
 void Convert(uint3 id : SV_DispatchThreadID)
 {
@@ -21,6 +27,7 @@ void Convert(uint3 id : SV_DispatchThreadID)
     uint raw = ColorBuffer[uv2.x + uv2.y * MapDimensions.x];
 
     float3 color = (uint3(raw, raw >> 8, raw >> 16) & 0xffU) / 255.0;
+    color = GammaToLinearSpace(color);
 
     ColorMap[id.xy] = float4(mask * color, mask);
 
