@@ -5,6 +5,21 @@ using System.Threading;
 
 namespace Rsvfx
 {
+    //
+    // CombinedDriver
+    //
+    // A Unity component that manages a combination of a depth camera (D4xx)
+    // and a tracker (T265). This class directly uses the C# wrapper of the
+    // RealSense SDK, so there is no dependency to the Unity components
+    // included in the RealSense SDK.
+    //
+    // There are two main functionalities in this component:
+    // - Updates attribute maps (position/color) based on depth input.
+    // - Updates a transform based on pose input from a tracker.
+    //
+    // Pose input is buffered in an internal queue to synchronize with depth
+    // input. Contrastly, depth input is processed immediately after reception.
+    //
     public sealed class CombinedDriver : MonoBehaviour
     {
         #region Editable attributes
