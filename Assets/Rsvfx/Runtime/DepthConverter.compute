@@ -1,6 +1,8 @@
 #pragma kernel Convert
 
 uint2 MapDimensions;
+float4 ColorIntrinsics;
+float4 DepthIntrinsics;
 float DepthThreshold;
 float2 ColorAdjust; // brightness, saturation
 
@@ -22,11 +24,29 @@ void Convert(uint3 id : SV_DispatchThreadID)
 {
     uint i = id.x + id.y * MapDimensions.x;
 
+    // Position sample
+    float3 pos = float3(
+         PositionBuffer[i * 3],
+        -PositionBuffer[i * 3 + 1],
+         PositionBuffer[i * 3 + 2]
+    );
+
+    // Far plane point
+    float f_x = (id.x - DepthIntrinsics.x) / DepthIntrinsics.z;
+    float f_y = (id.y - DepthIntrinsics.y) / DepthIntrinsics.w;
+    float f_u = f_x * ColorIntrinsics.z + ColorIntrinsics.x;
+    float f_v = f_y * ColorIntrinsics.w + ColorIntrinsics.y;
+    float3 f_pos = float3(f_x, -f_y, 1) * DepthThreshold;
+    float2 f_uv = float2(f_u, f_v);
+
     // Remapped UV
     float2 uv = float2(RemapBuffer[i * 2], RemapBuffer[i * 2 + 1]);
 
+    // Mask from the remapped UV and the depth threashold
+    bool mask = all(0 < uv && uv < 1) && (pos.z < DepthThreshold);
+
     // Raw color sample
-    uint2 id2 = uv * MapDimensions;
+    uint2 id2 = mask ? uv * MapDimensions : f_uv;
     uint raw = ColorBuffer[id2.x + id2.y * MapDimensions.x];
 
     // Color adjustment
@@ -35,17 +55,7 @@ void Convert(uint3 id : SV_DispatchThreadID)
     color = lerp(ColorAdjust.x, 1, lerp(luma, color, ColorAdjust.y));
     color = GammaToLinearSpace(color);
 
-    // Position sample
-    float3 pos = float3(
-         PositionBuffer[i * 3],
-        -PositionBuffer[i * 3 + 1],
-         PositionBuffer[i * 3 + 2]
-    );
-
-    // Mask from the remap coordinates and the depth threashold
-    bool mask = all(0 < uv && uv < 1) && (pos.z < DepthThreshold);
-
     // Output
-    ColorMap[id.xy] = float4(mask * color, mask);
-    PositionMap[id.xy] = float4(pos.xy, mask ? pos.z : 1000, mask);
+    ColorMap[id.xy] = float4(color, mask);
+    PositionMap[id.xy] = float4(lerp(f_pos, pos, mask), mask);
 }
