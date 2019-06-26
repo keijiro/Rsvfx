@@ -29,7 +29,6 @@ MonoBehaviour:
   m_Name: Filters
   m_EditorClassIdentifier: 
   _processingBlocks:
-  - {fileID: 5093470423639917846}
   - {fileID: 1789406492603770128}
   - {fileID: -7570560584298230710}
 --- !u!114 &1789406492603770128
@@ -49,17 +48,3 @@ MonoBehaviour:
   _filterSmoothAlpha: 0.5
   _filterSmoothDelta: 20
   _holeFillingMode: 1
---- !u!114 &5093470423639917846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e983f300be5296946991080a386e462a, type: 3}
-  m_Name: DepthCutoff
-  m_EditorClassIdentifier: 
-  enabled: 1
-  Distance: 1500
