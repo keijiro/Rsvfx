@@ -48,6 +48,7 @@ namespace Rsvfx
         PoseQueue _poseQueue = new PoseQueue();
 
         (VideoFrame color, Points point) _depthFrame;
+        (Intrinsics color, Intrinsics depth) _intrinsics;
         readonly object _depthFrameLock = new object();
 
         DepthConverter _converter;
@@ -88,6 +89,11 @@ namespace Rsvfx
                         {
                             _depthFrame.color?.Dispose();
                             _depthFrame.color = fs.ColorFrame;
+
+                            using (var prof = _depthFrame.color.
+                                   GetProfile<VideoStreamProfile>())
+                                _intrinsics.color = prof.GetIntrinsics();
+
                             pcBlock.MapTexture(_depthFrame.color);
                         }
 
@@ -95,10 +101,15 @@ namespace Rsvfx
                         using (var df = fs.DepthFrame)
                         {
                             var pc = pcBlock.Process(df).Cast<Points>();
+
                             lock (_depthFrameLock)
                             {
                                 _depthFrame.point?.Dispose();
                                 _depthFrame.point = pc;
+
+                                using (var prof = df.
+                                       GetProfile<VideoStreamProfile>())
+                                    _intrinsics.depth = prof.GetIntrinsics();
                             }
                         }
                     }
@@ -170,8 +181,8 @@ namespace Rsvfx
             {
                 if (_depthFrame.color == null) return;
                 if (_depthFrame.point == null) return;
-                _converter.LoadColorData(_depthFrame.color);
-                _converter.LoadPointData(_depthFrame.point);
+                _converter.LoadColorData(_depthFrame.color, _intrinsics.color);
+                _converter.LoadPointData(_depthFrame.point, _intrinsics.depth);
                 time = _depthFrame.color.Timestamp;
             }
 
