@@ -110,4 +110,6 @@ MonoBehaviour:
   _colorMap: {fileID: 0}
   _positionMap: {fileID: 0}
   _depthThreshold: 2
+  _brightness: 0
+  _saturation: 1
   _compute: {fileID: 7200000, guid: 5e9f29dc01a48bcb59ee66eaddc9d7d2, type: 3}

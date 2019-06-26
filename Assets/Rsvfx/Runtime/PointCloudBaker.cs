@@ -20,6 +20,8 @@ namespace Rsvfx
 
         [Space]
         [SerializeField] float _depthThreshold = 10;
+        [SerializeField, Range(0, 1)] float _brightness = 0;
+        [SerializeField, Range(0, 1)] float _saturation = 1;
 
         [SerializeField, HideInInspector] ComputeShader _compute = null;
 
@@ -65,8 +67,12 @@ namespace Rsvfx
             if (_frameQueue.point.PollForFrame(out pf))
                 using (pf) _converter.LoadPointData(pf);
 
-            // Bake them.
+            // Update the converter options.
+            _converter.Brightness = _brightness;
+            _converter.Saturation = _saturation;
             _converter.DepthThreshold = _depthThreshold;
+
+            // Bake them.
             _converter.UpdateAttributeMaps(_colorMap, _positionMap);
         }
 

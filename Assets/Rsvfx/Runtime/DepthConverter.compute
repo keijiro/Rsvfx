@@ -2,6 +2,7 @@
 
 uint2 MapDimensions;
 float DepthThreshold;
+float2 ColorAdjust; // brightness, saturation
 
 StructuredBuffer<uint> ColorBuffer;
 StructuredBuffer<float> PositionBuffer;
@@ -21,22 +22,30 @@ void Convert(uint3 id : SV_DispatchThreadID)
 {
     uint i = id.x + id.y * MapDimensions.x;
 
+    // Remapped UV
     float2 uv = float2(RemapBuffer[i * 2], RemapBuffer[i * 2 + 1]);
 
-    uint2 uv2 = uv * MapDimensions;
-    uint raw = ColorBuffer[uv2.x + uv2.y * MapDimensions.x];
+    // Raw color sample
+    uint2 id2 = uv * MapDimensions;
+    uint raw = ColorBuffer[id2.x + id2.y * MapDimensions.x];
 
+    // Color adjustment
     float3 color = (uint3(raw, raw >> 8, raw >> 16) & 0xffU) / 255.0;
+    float luma = dot(color, float3(0.2126, 0.7152, 0.0722));
+    color = lerp(ColorAdjust.x, 1, lerp(luma, color, ColorAdjust.y));
     color = GammaToLinearSpace(color);
 
+    // Position sample
     float3 pos = float3(
          PositionBuffer[i * 3],
         -PositionBuffer[i * 3 + 1],
          PositionBuffer[i * 3 + 2]
     );
 
+    // Mask from the remap coordinates and the depth threashold
     bool mask = all(0 < uv && uv < 1) && (pos.z < DepthThreshold);
 
+    // Output
     ColorMap[id.xy] = float4(mask * color, mask);
     PositionMap[id.xy] = float4(pos.xy, mask ? pos.z : 1000, mask);
 }

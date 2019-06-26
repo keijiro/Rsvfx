@@ -57,5 +57,12 @@ namespace Rsvfx
             _intArgs2[1] = args.y;
             shader.SetInts(name, _intArgs2);
         }
+
+        public static void SetVector
+            (this ComputeShader shader, string name,
+             float x, float y = 0, float z = 0, float w = 0)
+        {
+            shader.SetVector(name, new Vector4(x, y, z, w));
+        }
     }
 }

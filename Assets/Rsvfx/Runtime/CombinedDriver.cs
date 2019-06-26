@@ -26,7 +26,11 @@ namespace Rsvfx
 
         [SerializeField] uint2 _resolution = math.uint2(640, 480);
         [SerializeField] uint _framerate = 30;
+        [Space]
         [SerializeField] float _depthThreshold = 10;
+        [SerializeField, Range(0, 1)] float _brightness = 0;
+        [SerializeField, Range(0, 1)] float _saturation = 1;
+        [Space]
         [SerializeField] Transform _poseTransform = null;
         [SerializeField] RenderTexture _colorMap = null;
         [SerializeField] RenderTexture _positionMap = null;
@@ -171,8 +175,12 @@ namespace Rsvfx
                 time = _depthFrame.color.Timestamp;
             }
 
-            // Update the external attribute maps.
+            // Update the converter options.
+            _converter.Brightness = _brightness;
+            _converter.Saturation = _saturation;
             _converter.DepthThreshold = _depthThreshold;
+
+            // Update the external attribute maps.
             _converter.UpdateAttributeMaps(_colorMap, _positionMap);
 
             // Apply pose data to the target transform.
