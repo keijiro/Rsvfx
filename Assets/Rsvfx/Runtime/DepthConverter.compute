@@ -1,6 +1,7 @@
 #pragma kernel Convert
 
 uint2 MapDimensions;
+float DepthThreshold;
 
 StructuredBuffer<uint> ColorBuffer;
 StructuredBuffer<float> PositionBuffer;
@@ -21,7 +22,6 @@ void Convert(uint3 id : SV_DispatchThreadID)
     uint i = id.x + id.y * MapDimensions.x;
 
     float2 uv = float2(RemapBuffer[i * 2], RemapBuffer[i * 2 + 1]);
-    bool mask = all(0 < uv && uv < 1);
 
     uint2 uv2 = uv * MapDimensions;
     uint raw = ColorBuffer[uv2.x + uv2.y * MapDimensions.x];
@@ -29,13 +29,14 @@ void Convert(uint3 id : SV_DispatchThreadID)
     float3 color = (uint3(raw, raw >> 8, raw >> 16) & 0xffU) / 255.0;
     color = GammaToLinearSpace(color);
 
-    ColorMap[id.xy] = float4(mask * color, mask);
-
     float3 pos = float3(
          PositionBuffer[i * 3],
         -PositionBuffer[i * 3 + 1],
-         mask ? PositionBuffer[i * 3 + 2] : 1000
+         PositionBuffer[i * 3 + 2]
     );
 
-    PositionMap[id.xy] = float4(pos, mask);
+    bool mask = all(0 < uv && uv < 1) && (pos.z < DepthThreshold);
+
+    ColorMap[id.xy] = float4(mask * color, mask);
+    PositionMap[id.xy] = float4(pos.xy, mask ? pos.z : 1000, mask);
 }

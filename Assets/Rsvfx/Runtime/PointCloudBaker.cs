@@ -10,11 +10,16 @@ namespace Rsvfx
     {
         #region Editable attributes
 
+        [Space]
         [SerializeField] RsFrameProvider _colorSource = null;
         [SerializeField] RsFrameProvider _pointSource = null;
+
         [Space]
         [SerializeField] RenderTexture _colorMap = null;
         [SerializeField] RenderTexture _positionMap = null;
+
+        [Space]
+        [SerializeField] float _depthThreshold = 10;
 
         [SerializeField, HideInInspector] ComputeShader _compute = null;
 
@@ -61,6 +66,7 @@ namespace Rsvfx
                 using (pf) _converter.LoadPointData(pf);
 
             // Bake them.
+            _converter.DepthThreshold = _depthThreshold;
             _converter.UpdateAttributeMaps(_colorMap, _positionMap);
         }
 

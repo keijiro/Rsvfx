@@ -26,6 +26,7 @@ namespace Rsvfx
 
         [SerializeField] uint2 _resolution = math.uint2(640, 480);
         [SerializeField] uint _framerate = 30;
+        [SerializeField] float _depthThreshold = 10;
         [SerializeField] Transform _poseTransform = null;
         [SerializeField] RenderTexture _colorMap = null;
         [SerializeField] RenderTexture _positionMap = null;
@@ -171,6 +172,7 @@ namespace Rsvfx
             }
 
             // Update the external attribute maps.
+            _converter.DepthThreshold = _depthThreshold;
             _converter.UpdateAttributeMaps(_colorMap, _positionMap);
 
             // Apply pose data to the target transform.

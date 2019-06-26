@@ -432,6 +432,7 @@ MonoBehaviour:
     x: 640
     y: 480
   _framerate: 60
+  _depthThreshold: 10
   _poseTransform: {fileID: 407010906}
   _colorMap: {fileID: 8400000, guid: e96cdc3b37ad79be39d14ce547fe0da1, type: 2}
   _positionMap: {fileID: 8400000, guid: d8e773d5bbad0c05c965e6b888e86b55, type: 2}

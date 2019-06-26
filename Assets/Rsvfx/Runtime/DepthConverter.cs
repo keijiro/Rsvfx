@@ -10,6 +10,12 @@ namespace Rsvfx
     // can be easily fed to a visual effect graph.
     sealed class DepthConverter : System.IDisposable
     {
+        #region Public properties
+
+        public float DepthThreshold { get; set; } = 10;
+
+        #endregion
+
         #region Public methods
 
         public DepthConverter(ComputeShader compute)
@@ -188,6 +194,7 @@ namespace Rsvfx
             }
 
             _compute.SetInts("MapDimensions", _dimensions);
+            _compute.SetFloat("DepthThreshold", DepthThreshold);
             _compute.SetBuffer(0, "ColorBuffer", _colorBuffer);
             _compute.SetBuffer(0, "PositionBuffer", _positionBuffer);
             _compute.SetBuffer(0, "RemapBuffer", _remapBuffer);
