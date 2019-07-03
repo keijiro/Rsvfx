@@ -39,6 +39,25 @@ namespace Rsvfx
 
         #endregion
 
+        #region Public properties
+
+        public float depthThreshold {
+            get { return _depthThreshold; }
+            set { _depthThreshold = value; }
+        }
+
+        public float brightness {
+            get { return _brightness; }
+            set { _brightness = value; }
+        }
+
+        public float saturation {
+            get { return _saturation; }
+            set { _saturation = value; }
+        }
+
+        #endregion
+
         #region Private objects
 
         (Pipeline tracker, Pipeline depth) _pipes;
