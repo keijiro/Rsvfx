@@ -1,28 +1,19 @@
 {
-  "dependencies": {
-    "com.unity.mathematics": "1.0.1",
-    "com.unity.package-manager-ui": "2.1.2",
-    "com.unity.render-pipelines.high-definition": "5.16.1-preview",
-    "com.unity.visualeffectgraph": "5.16.1-preview",
-    "jp.keijiro.klak.motion": "https://github.com/keijiro/ProceduralMotion.git#upm",
-    "jp.keijiro.vfxextra": "https://github.com/keijiro/VfxExtra.git#upm",
+    "scopedRegistries": [{
+        "name": "Keijiro",
+        "url": "https://registry.npmjs.com",
+        "scopes": [ "jp.keijiro" ]
+    }],
+    "dependencies": {
+    "com.unity.package-manager-ui": "2.2.0",
+    "com.unity.render-pipelines.high-definition": "6.9.1-preview",
+    "jp.keijiro.klak.motion": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.imageconversion": "1.0.0",
     "com.unity.modules.imgui": "1.0.0",
-    "com.unity.modules.jsonserialize": "1.0.0",
     "com.unity.modules.physics": "1.0.0",
-    "com.unity.modules.unitywebrequest": "1.0.0",
-    "com.unity.modules.vr": "1.0.0",
-    "com.unity.modules.xr": "1.0.0"
-  },
-  "lock": {
-    "jp.keijiro.klak.motion": {
-      "hash": "135fc7799e07da32c43637709f1c13323343d469",
-      "revision": "upm"
-    },
-    "jp.keijiro.vfxextra": {
-      "hash": "56f7f41a2742decd442f50ed7d26c1b59d265274",
-      "revision": "upm"
-    }
+    "com.unity.modules.physics2d": "1.0.0",
+    "com.unity.modules.ui": "1.0.0",
+    "com.unity.modules.vr": "1.0.0"
   }
 }
