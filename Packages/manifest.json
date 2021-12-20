@@ -1,12 +1,16 @@
 {
-    "scopedRegistries": [{
-        "name": "Keijiro",
-        "url": "https://registry.npmjs.com",
-        "scopes": [ "jp.keijiro" ]
-    }],
-    "dependencies": {
-    "com.unity.package-manager-ui": "2.2.0",
-    "com.unity.render-pipelines.high-definition": "6.9.1-preview",
+  "scopedRegistries": [
+    {
+      "name": "Keijiro",
+      "url": "https://registry.npmjs.com",
+      "scopes": [
+        "jp.keijiro"
+      ]
+    }
+  ],
+  "dependencies": {
+    "com.unity.ide.visualstudio": "2.0.12",
+    "com.unity.render-pipelines.high-definition": "7.3.1",
     "jp.keijiro.klak.motion": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.imageconversion": "1.0.0",

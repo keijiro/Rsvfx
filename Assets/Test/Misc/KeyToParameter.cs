@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Experimental.VFX;
+using UnityEngine.VFX;
 
 public class KeyToParameter : MonoBehaviour
 {

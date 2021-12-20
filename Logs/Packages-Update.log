@@ -1,0 +1,20 @@
+
+=== Mon Dec 20 16:08:23 2021
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.render-pipelines.high-definition from version 6.9.1-preview to 7.1.8
+The following packages were removed:
+  com.unity.package-manager-ui@2.2.0
+
+=== Mon Dec 20 16:21:25 2021
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were added:
+  com.unity.ide.visualstudio@2.0.11
+The following packages were updated:
+  com.unity.render-pipelines.high-definition from version 7.1.8 to 7.3.1
