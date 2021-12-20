@@ -7,7 +7,8 @@ using UnityEngine.Rendering;
 using UnityEngine.XR;
 
 public class RsARBackgroundRenderer : MonoBehaviour
-{
+{   
+    /*
     public RsFrameProvider Source;
     public Material material;
     private Camera cam;
@@ -112,4 +113,5 @@ public class RsARBackgroundRenderer : MonoBehaviour
 
         return new Vector2Int((int)(vp.x * intrinsics.width), (int)(vp.y * intrinsics.height));
     }
+    */
 }
